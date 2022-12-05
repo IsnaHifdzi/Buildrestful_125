@@ -29,12 +29,12 @@ public class ProductServiceController {
         static {
         
     }
-    //tempat untuk meletakkan produk
+    //tempat untuk meletakkan produk.
     @RequestMapping(value = "/create")
     public ResponseEntity<Object> create(
             @RequestParam(value = "name", required = false, defaultValue = "honey") String name
     ) {
-        //untuk menambahkan produk ke dalam daftar secara  manual
+        //untuk menambahkan produk ke dalam daftar secara  manual.
         Product honey = new Product();
         honey.setId("1");
         honey.setName("Honey");
@@ -46,7 +46,7 @@ public class ProductServiceController {
         productRepo.put(almond.getId(), almond);
        return new ResponseEntity<>("produk dibuat", HttpStatus.OK); 
     }
-     //menampilkan produk
+     //menampilkan produk.
     @RequestMapping(value = "/products")
     public ResponseEntity<Object> getProducts(
             @RequestParam(value = "name", required = false, defaultValue = "honey") String name
@@ -54,10 +54,10 @@ public class ProductServiceController {
         
        return new ResponseEntity<>(productRepo.values(), HttpStatus.OK); 
     }
-    //menambahkan produk melalui postman
+    //menambahkan produk melalui postman.
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<Object> createProduct(@RequestBody Product product){
-        //jika ada id yang dimasukkan sama maka akan menampilkan pemeberitahuan bahwa id yang dimasukkan sudah ada
+        //jika ada id yang dimasukkan sama maka akan menampilkan pemeberitahuan bahwa id yang dimasukkan sudah ada.
         if (productRepo.containsKey(product.getId())){
             return new ResponseEntity<>("Product already exists", HttpStatus.CONFLICT);
         }
@@ -67,10 +67,10 @@ public class ProductServiceController {
         }
     }
 
-    //mengedit produk yang sudah ada
+    //mengedit produk yang sudah ada.
    @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
    public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Product product) { 
-      //jika id yang dimasukkan tidak ada dalam daftar produk
+      //jika id yang dimasukkan tidak ada dalam daftar produk.
        if(!productRepo.containsKey(id)){
           return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
       }
@@ -81,7 +81,7 @@ public class ProductServiceController {
         return new ResponseEntity<>("Product is updated successsfully", HttpStatus.OK);
       }
    }
-   //menghapus produk
+   //menghapus produk.
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable("id") String id) {
         if(!productRepo.containsKey(id)){
